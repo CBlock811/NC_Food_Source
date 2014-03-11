@@ -1,5 +1,5 @@
 NCFoodSource::Application.routes.draw do
-  get "welcome/index"
+  root to: 'welcome#index'
   get "welcome/about"
   get "welcome/farms"
   get "welcome/blog"
