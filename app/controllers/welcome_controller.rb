@@ -5,9 +5,6 @@ class WelcomeController < ApplicationController
   def about
   end
 
-  def farms
-  end
-
   def blog
   end
 
