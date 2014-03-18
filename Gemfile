@@ -13,6 +13,8 @@ gem 'paperclip'
 gem 'aws-sdk', '~> 1.20.0'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
+gem 'rmagick'
+
 
 group :production do
   gem 'pg'

@@ -9,6 +9,10 @@ NCFoodSource::Application.routes.draw do
   match "blog", to: 'welcome#blog', via: :get
   match "contact", to: 'welcome#contact', via: :get
 
+  namespace :admin do
+    resources :index, :about, :suppliers, :blog, :contact
+  end
+
   root to: 'welcome#index'
   
 end
