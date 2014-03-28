@@ -1,0 +1,11 @@
+<h1>All Products</h1>
+
+<% @products.each do |product| %>
+  <div class="media">
+    <div class="media-body">
+      <h4 class="media-heading">
+        <p><%= link_to product.name, product %></p>
+      </h4>
+    </div>
+  </div>
+<% end %>

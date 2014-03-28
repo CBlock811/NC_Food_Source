@@ -2,14 +2,17 @@ class Admin::SuppliersController < ApplicationController
   
   def index
     @suppliers = Supplier.all
+    authorize @suppliers
   end
 
   def show
     @supplier = Supplier.find(params[:id])
+    @products = @supplier.products
   end
 
   def new
     @supplier = Supplier.new
+    authorize @supplier
   end
 
   def edit
@@ -18,6 +21,7 @@ class Admin::SuppliersController < ApplicationController
 
   def create
     @supplier = Supplier.new(params[:supplier].permit(:name, :description))
+    authorize @supplier
 
     if @supplier.save!
       redirect_to @supplier

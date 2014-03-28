@@ -1,22 +1,20 @@
 class SuppliersController < ApplicationController
   def index
     @suppliers = Supplier.all
+    authorize @suppliers
   end
 
   def show
     @supplier = Supplier.find(params[:id])
+    @products = @supplier.products
   end
 
   def new
     @supplier = Supplier.new
   end
 
-  def edit
-    @supplier = Supplier.find(params[:id])
-  end
-
   def create
-    @supplier = Supplier.new(params[:supplier].permit(:name, :description))
+    @supplier = Supplier.new(supplier_params)
 
     if @supplier.save!
       redirect_to @supplier
@@ -26,9 +24,13 @@ class SuppliersController < ApplicationController
     end
   end
 
+  def edit
+    @supplier = Supplier.find(params[:id])
+  end
+
   def update
     @supplier = Supplier.find(params[:id])
-    if @supplier.update_attributes(params.require(:supplier).permit(:name, :description))
+    if @supplier.update_attributes(supplier_params)
       flash[:notice] = "Supplier was updated."
       redirect_to @supplier
     else
@@ -38,16 +40,21 @@ class SuppliersController < ApplicationController
   end
 
   def destroy
-  @supplier = Supplier.find(params[:id])
-  name = @supplier.name
+    @supplier = Supplier.find(params[:id])
+    name = @supplier.name
 
-  if @supplier.destroy
-    flash[:notice] = "\"#{name}\" was deleted successfully."
-    redirect_to @supplier
-  else
-    flash[:error] = "There was an error deleting the supplier"
-    render :show
+    if @supplier.destroy
+      flash[:notice] = "\"#{name}\" was deleted successfully."
+      redirect_to @supplier
+    else
+      flash[:error] = "There was an error deleting the supplier"
+      render :show
+    end
   end
-end
 
+  private
+ 
+  def supplier_params
+    params.require(:supplier).permit(:name, :description)
+  end
 end
