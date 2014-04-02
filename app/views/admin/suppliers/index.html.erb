@@ -6,6 +6,8 @@
         <%= link_to supplier.name, supplier %>
       </h4>
     </div>
-    <%= link_to "New", new_admin_supplier_path, class: 'btn btn-primary' %>
+    <% if policy(Supplier.new).create? %>
+      <%= link_to "New", new_admin_supplier_path, class: 'btn btn-primary' %>
+    <% end %>
   </div>
 <% end %>

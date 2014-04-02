@@ -8,11 +8,13 @@ class ProductsController < ApplicationController
   def new
     @supplier = Supplier.find(params[:supplier_id])
     @product = Product.new
+    authorize @product
   end
 
   def create
     @supplier = Supplier.find(params[:supplier_id])
     @product = @supplier.products.build(product_params)
+    authorize @product
 
     if @product.save!
       flash[:notice] = "Product was created."
@@ -27,7 +29,7 @@ class ProductsController < ApplicationController
   def destroy
     @supplier = Supplier.find(params[:supplier_id])
     @product = @supplier.products.find(params[:id])
-    #authorize @product
+    authorize @product
 
     if @product.destroy
       flash[:notice] = "Product was deleted."

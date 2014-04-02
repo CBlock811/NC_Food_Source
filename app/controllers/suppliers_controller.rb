@@ -1,7 +1,6 @@
 class SuppliersController < ApplicationController
   def index
     @suppliers = Supplier.all
-    authorize @suppliers
   end
 
   def show
@@ -11,10 +10,12 @@ class SuppliersController < ApplicationController
 
   def new
     @supplier = Supplier.new
+    authorize @supplier
   end
 
   def create
     @supplier = Supplier.new(supplier_params)
+    authorize @supplier
 
     if @supplier.save!
       redirect_to @supplier
@@ -26,10 +27,13 @@ class SuppliersController < ApplicationController
 
   def edit
     @supplier = Supplier.find(params[:id])
+    authorize @supplier
   end
 
   def update
     @supplier = Supplier.find(params[:id])
+    authorize @supplier
+
     if @supplier.update_attributes(supplier_params)
       flash[:notice] = "Supplier was updated."
       redirect_to @supplier
@@ -42,6 +46,7 @@ class SuppliersController < ApplicationController
   def destroy
     @supplier = Supplier.find(params[:id])
     name = @supplier.name
+    authorize @supplier
 
     if @supplier.destroy
       flash[:notice] = "\"#{name}\" was deleted successfully."
@@ -55,6 +60,6 @@ class SuppliersController < ApplicationController
   private
  
   def supplier_params
-    params.require(:supplier).permit(:name, :description)
+    params.require(:supplier).permit(:name, :description, :email)
   end
 end

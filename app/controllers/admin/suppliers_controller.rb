@@ -2,12 +2,12 @@ class Admin::SuppliersController < ApplicationController
   
   def index
     @suppliers = Supplier.all
-    authorize @suppliers
   end
 
   def show
     @supplier = Supplier.find(params[:id])
     @products = @supplier.products
+    authorize @supplier
   end
 
   def new
@@ -17,6 +17,7 @@ class Admin::SuppliersController < ApplicationController
 
   def edit
     @supplier = Supplier.find(params[:id])
+    authorize @supplier
   end
 
   def create
@@ -33,6 +34,7 @@ class Admin::SuppliersController < ApplicationController
 
   def update
     @supplier = Supplier.find(params[:id])
+    authorize @supplier
     if @supplier.update_attributes(params.require(:supplier).permit(:name, :description))
       flash[:notice] = "Supplier was updated."
       redirect_to @supplier
@@ -45,6 +47,7 @@ class Admin::SuppliersController < ApplicationController
   def destroy
     @supplier = Supplier.find(params[:id])
     name = @supplier.name
+    authorize @supplier
 
     if @supplier.destroy
       flash[:notice] = "\"#{name}\" was deleted successfully."

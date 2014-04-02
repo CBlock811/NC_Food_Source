@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140314141307) do
+ActiveRecord::Schema.define(version: 20140402001917) do
 
   create_table "admins", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -42,13 +42,11 @@ ActiveRecord::Schema.define(version: 20140314141307) do
 
   create_table "products", force: true do |t|
     t.string   "name"
-    t.integer  "price"
+    t.text     "price"
     t.integer  "supplier_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "products", ["supplier_id"], name: "index_products_on_supplier_id"
 
   create_table "supplier_comments", force: true do |t|
     t.text     "body"
@@ -73,6 +71,7 @@ ActiveRecord::Schema.define(version: 20140314141307) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "email"
   end
 
   create_table "users", force: true do |t|
@@ -93,6 +92,7 @@ ActiveRecord::Schema.define(version: 20140314141307) do
     t.string   "unconfirmed_email"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "role"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
