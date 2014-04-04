@@ -1,9 +1,5 @@
 class ProductsController < ApplicationController
-
-  def show
-    @supplier = Supplier.find(params[:supplier_id])
-    @product = Product.find(params[:id])
-  end
+  respond_to :html, :js
 
   def new
     @supplier = Supplier.find(params[:supplier_id])
@@ -18,12 +14,13 @@ class ProductsController < ApplicationController
 
     if @product.save!
       flash[:notice] = "Product was created."
-      redirect_to @supplier
     else
       flash[:error] = "There was an error saving. Please try again."
-      render :new
     end
 
+    respond_with(@product) do |f|
+      f.html {redirect_to @supplier }
+    end
   end
 
   def destroy
@@ -33,8 +30,10 @@ class ProductsController < ApplicationController
 
     if @product.destroy
       flash[:notice] = "Product was deleted."
+      redirect_to @supplier 
     else
       flash[:error] = "Product couldn't be deleted. Try again."
+      render :show
     end
   end
 

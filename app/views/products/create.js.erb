@@ -1,0 +1,5 @@
+<% if @product.valid? %>
+  $('.js-products').prepend("<%= escape_javascript(render(@product)) %>");
+<% else %>
+  $('.new_product').html("<%= escape_javascript(render partial: 'products/form', locals: { supplier: @supplier, product: @product }) %>");
+<% end %>
