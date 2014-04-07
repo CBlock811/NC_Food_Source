@@ -8,7 +8,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(params.require(:post).permit(:title, :body))
+    @post = Post.new(post_params)
 
     if @post.save!
       flash[:notice] = "Post was created."
